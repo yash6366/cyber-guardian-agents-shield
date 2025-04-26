@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -9,7 +8,7 @@ import ThreatFeed from "@/components/ThreatFeed";
 import { Button } from "@/components/ui/button";
 
 const Dashboard = () => {
-  const [selectedAgent, setSelectedAgent] = useState("hunter");
+  const [selectedAgent, setSelectedAgent] = useState<"hunter" | "classifier" | "response">("hunter");
 
   const detectionData = [
     { time: '00:00', threats: 4, resolved: 3 },
@@ -36,10 +35,10 @@ const Dashboard = () => {
   ];
 
   const recentAlerts = [
-    { id: 1, type: "SQL Injection", severity: "High", time: "10 mins ago", status: "Mitigated" },
-    { id: 2, type: "Suspicious Login", severity: "Medium", time: "25 mins ago", status: "Investigating" },
-    { id: 3, type: "DDoS Attempt", severity: "Critical", time: "1 hour ago", status: "Mitigated" },
-    { id: 4, type: "Data Exfiltration", severity: "High", time: "2 hours ago", status: "Mitigated" },
+    { id: 1, type: "SQL Injection", severity: "High" as const, time: "10 mins ago", status: "Mitigated" as const },
+    { id: 2, type: "Suspicious Login", severity: "Medium" as const, time: "25 mins ago", status: "Investigating" as const },
+    { id: 3, type: "DDoS Attempt", severity: "Critical" as const, time: "1 hour ago", status: "Mitigated" as const },
+    { id: 4, type: "Data Exfiltration", severity: "High" as const, time: "2 hours ago", status: "Mitigated" as const },
   ];
 
   return (
