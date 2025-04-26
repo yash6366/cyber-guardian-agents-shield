@@ -11,19 +11,19 @@ const Index = () => {
       name: "Hunter Agent",
       description: "Autonomous threat detection and monitoring",
       status: "Active",
-      type: "detection",
+      type: "detection" as const,
     },
     {
       name: "Classifier Agent",
       description: "Dynamic threat classification using LLMs",
       status: "Active",
-      type: "classification",
+      type: "classification" as const,
     },
     {
       name: "Response Agent",
       description: "Real-time self-healing response system",
       status: "Standing By",
-      type: "response",
+      type: "response" as const,
     },
   ];
 
@@ -53,7 +53,13 @@ const Index = () => {
         <h2 className="text-2xl font-bold mb-8 text-center">Defense Agents</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {agents.map((agent) => (
-            <AgentCard key={agent.name} {...agent} />
+            <AgentCard 
+              key={agent.name}
+              name={agent.name}
+              description={agent.description}
+              status={agent.status}
+              type={agent.type}
+            />
           ))}
         </div>
       </section>
