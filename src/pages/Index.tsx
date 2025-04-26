@@ -1,6 +1,8 @@
 
 import { Shield, FileText, Code } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import AgentCard from "@/components/AgentCard";
 import ArchitectureDiagram from "@/components/ArchitectureDiagram";
 import StatusMonitor from "@/components/StatusMonitor";
@@ -40,6 +42,17 @@ const Index = () => {
         <p className="text-xl text-center text-gray-400 max-w-3xl mx-auto mb-12">
           Next-generation AI agents for real-time autonomous cybersecurity defense
         </p>
+        <div className="flex justify-center">
+          <Link to="/dashboard">
+            <Button size="lg" className="flex items-center gap-2 text-lg">
+              Explore the Dashboard
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </Button>
+          </Link>
+        </div>
       </section>
 
       {/* Project Summary */}
