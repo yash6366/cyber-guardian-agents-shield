@@ -22,9 +22,11 @@ const App = () => (
         <Navigation />
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/auth" element={<Auth />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/simulation" element={<Simulation />} />
           <Route path="/config" element={<Config />} />
+          <Route path="/reports" element={<Reports />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
