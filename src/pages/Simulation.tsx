@@ -18,6 +18,9 @@ const Simulation = () => {
     "SQL Injection",
     "Cross-Site Scripting (XSS)",
     "Distributed Denial of Service (DDoS)",
+    "Zero-Day Exploit",
+    "Advanced Persistent Threat",
+    "Ransomware Simulation",
     "Brute Force Login",
     "Data Exfiltration"
   ];

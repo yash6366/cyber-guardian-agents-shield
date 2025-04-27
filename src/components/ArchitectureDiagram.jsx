@@ -41,6 +41,8 @@ const ArchitectureDiagram = () => {
       borderClass: "border-orange-800/50",
       components: [
         { name: "Threat Intel", icon: <Database className="w-6 h-6 text-orange-500" /> },
+{ name: "ML Models", icon: <Brain className="w-6 h-6 text-purple-500" /> },
+{ name: "LLM Integration", icon: <Cpu className="w-6 h-6 text-blue-500" /> },
         { name: "CVE Database", icon: <Database className="w-6 h-6 text-orange-500" /> },
         { name: "RAG", icon: <Database className="w-6 h-6 text-orange-500" /> }
       ]

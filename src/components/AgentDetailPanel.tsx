@@ -80,6 +80,7 @@ async def classify_threat(threat_data):
         { name: "Time to Mitigate", value: 90 },
       ],
       technologies: [
+        "RAG-Enhanced Classification",
         "Policy-Based Response",
         "Self-Healing System",
         "Firewall Integration",
