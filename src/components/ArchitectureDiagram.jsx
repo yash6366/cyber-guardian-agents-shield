@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Activity, Database, Shield, Cloud, Server, Zap, Lock } from 'lucide-react';
+import { Activity, Database, Shield, Cloud, Server, Zap, Lock, Brain, Cpu } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 
 const ArchitectureDiagram = () => {
