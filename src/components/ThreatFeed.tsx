@@ -1,5 +1,5 @@
-
 import React from 'react';
+import { Card } from "@/components/ui/card";
 import { AlertTriangle, Check } from 'lucide-react';
 
 interface ThreatAlert {
@@ -14,19 +14,19 @@ interface ThreatFeedProps {
   alerts: ThreatAlert[];
 }
 
-const ThreatFeed = ({ alerts }: ThreatFeedProps) => {
+const ThreatFeed: React.FC<ThreatFeedProps> = ({ alerts }) => {
   const getSeverityColor = (severity: string) => {
     switch (severity) {
       case "Low":
-        return "bg-gray-700 text-gray-300";
+        return "bg-gray-700/60 text-gray-300 border-gray-600";
       case "Medium":
-        return "bg-yellow-900/60 text-yellow-400";
+        return "bg-yellow-900/60 text-yellow-400 border-yellow-600/40";
       case "High":
-        return "bg-orange-900/60 text-orange-400";
+        return "bg-orange-900/60 text-orange-400 border-orange-600/40";
       case "Critical":
-        return "bg-red-900/60 text-red-400";
+        return "bg-red-900/60 text-red-400 border-red-600/40";
       default:
-        return "bg-gray-700 text-gray-300";
+        return "bg-gray-700/60 text-gray-300 border-gray-600";
     }
   };
 
@@ -38,39 +38,28 @@ const ThreatFeed = ({ alerts }: ThreatFeedProps) => {
   };
 
   return (
-    <div className="space-y-4">
-      {alerts.map((alert) => (
-        <div 
-          key={alert.id}
-          className="border border-gray-700 bg-gray-900/50 rounded p-4 flex items-center justify-between"
-        >
-          <div className="flex-1">
-            <div className="flex items-center gap-2">
-              <span className={`px-2 py-1 rounded text-xs ${getSeverityColor(alert.severity)}`}>
-                {alert.severity}
-              </span>
-              <h4 className="font-medium">{alert.type}</h4>
+    <Card className="bg-gray-800/50 border-gray-700 p-6">
+      <h3 className="text-xl font-semibold mb-4">Recent Threats</h3>
+      <div className="space-y-4">
+        {alerts.map((alert) => (
+          <div
+            key={alert.id}
+            className={`flex items-center justify-between p-3 rounded-lg border ${getSeverityColor(
+              alert.severity
+            )}`}
+          >
+            <div>
+              <p className="font-medium">{alert.type}</p>
+              <p className="text-sm opacity-70">{alert.time}</p>
             </div>
-            <p className="text-sm text-gray-400 mt-1">{alert.time}</p>
+            <div className="flex items-center space-x-3">
+              <span className="text-sm">{alert.status}</span>
+              {getStatusIcon(alert.status)}
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <span className={`text-sm ${
-              alert.status === "Mitigated" ? "text-green-500" : 
-              alert.status === "Investigating" ? "text-yellow-500" : "text-gray-400"
-            }`}>
-              {alert.status}
-            </span>
-            {getStatusIcon(alert.status)}
-          </div>
-        </div>
-      ))}
-      
-      {alerts.length === 0 && (
-        <div className="text-center py-8 text-gray-400">
-          No recent alerts
-        </div>
-      )}
-    </div>
+        ))}
+      </div>
+    </Card>
   );
 };
 
