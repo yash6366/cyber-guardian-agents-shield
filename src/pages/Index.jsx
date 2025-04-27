@@ -38,7 +38,7 @@ const Index = () => {
       </div>
 
       {/* Hero Section with Animation */}
-      <section className="container mx-auto px-4 py-16 relative">
+      <section className="container mx-auto px-4 pt-24 pb-16 relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
