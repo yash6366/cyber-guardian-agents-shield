@@ -12,9 +12,9 @@ const Dashboard = () => {
 
   const detectionData = [
     { time: '00:00', threats: 4, resolved: 3, mlAccuracy: 92, falsePositives: 1 },
-    { time: '04:00', threats: 3, resolved: 3 },
-    { time: '08:00', threats: 7, resolved: 5 },
-    { time: '12:00', threats: 2, resolved: 2 },
+    { time: '04:00', threats: 3, resolved: 3, mlAccuracy: 94, falsePositives: 0 },
+    { time: '08:00', threats: 7, resolved: 5, mlAccuracy: 91, falsePositives: 2 },
+    { time: '12:00', threats: 2, resolved: 2, mlAccuracy: 95, falsePositives: 0 },
     { time: '16:00', threats: 6, resolved: 4 },
     { time: '20:00', threats: 4, resolved: 3 },
     { time: '24:00', threats: 5, resolved: 4 },

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Activity, Database, Shield, Cloud, Server, Zap, Lock, Brain, Cpu } from 'lucide-react';
 import { Card } from '@/components/ui/card';
@@ -52,14 +51,14 @@ const ArchitectureDiagram = () => {
   return (
     <div className="max-w-4xl mx-auto relative">
       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-cyan-500/5 blur-3xl -z-10"></div>
-      
+
       {layers.map((layer, index) => (
         <div key={layer.name} className="mb-12 transform hover:scale-[1.01] transition-all duration-300">
           <Card className={`border ${layer.borderClass} bg-gradient-to-br ${layer.bgClass} backdrop-blur-sm rounded-lg p-6 relative shadow-lg`}>
             <div className="text-xl font-semibold text-center mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">
               {layer.name}
             </div>
-            
+
             <div className="grid grid-cols-3 gap-4">
               {layer.components.map(component => (
                 <div 
@@ -73,7 +72,7 @@ const ArchitectureDiagram = () => {
                 </div>
               ))}
             </div>
-            
+
             {index < layers.length - 1 && (
               <div className="absolute left-1/2 -bottom-8 transform -translate-x-1/2 z-10 flex flex-col items-center">
                 <div className="w-0.5 h-8 bg-gradient-to-b from-blue-500 to-cyan-500"></div>
@@ -83,7 +82,7 @@ const ArchitectureDiagram = () => {
           </Card>
         </div>
       ))}
-      
+
       <div className="absolute -bottom-10 left-0 right-0 flex justify-center">
         <div className="flex items-center gap-2 text-sm text-gray-500 bg-gray-900/60 px-4 py-2 rounded-full border border-gray-800">
           <Lock className="w-4 h-4" />
