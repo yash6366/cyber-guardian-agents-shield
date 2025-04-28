@@ -4,16 +4,13 @@ import { Card } from "@/components/ui/card";
 import { Shield, Brain, Zap } from "lucide-react";
 
 interface AgentCardProps {
+  name: string;
+  description: string;
   type: 'hunter' | 'classifier' | 'response';
   status: 'active' | 'inactive' | 'learning';
-  metrics: {
-    accuracy?: number;
-    latency?: number;
-    threats?: number;
-  };
 }
 
-const AgentCard: React.FC<AgentCardProps> = ({ type, status, metrics }) => {
+const AgentCard: React.FC<AgentCardProps> = ({ name, description, type, status }) => {
   const getIcon = () => {
     switch (type) {
       case 'hunter': return <Shield className="w-6 h-6 text-blue-500" />;
@@ -22,20 +19,12 @@ const AgentCard: React.FC<AgentCardProps> = ({ type, status, metrics }) => {
     }
   };
 
-  const getTitle = () => {
-    switch (type) {
-      case 'hunter': return 'Hunter Agent';
-      case 'classifier': return 'Classifier Agent';
-      case 'response': return 'Response Agent';
-    }
-  };
-
   return (
     <Card className="bg-gray-800/50 border-gray-700 p-6">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center">
           {getIcon()}
-          <h3 className="text-xl font-semibold ml-3">{getTitle()}</h3>
+          <h3 className="text-xl font-semibold ml-3">{name}</h3>
         </div>
         <span className={`px-3 py-1 rounded-full text-sm ${
           status === 'active' ? 'bg-green-900/40 text-green-400' :
@@ -46,26 +35,7 @@ const AgentCard: React.FC<AgentCardProps> = ({ type, status, metrics }) => {
         </span>
       </div>
       
-      <div className="grid grid-cols-3 gap-4">
-        {metrics.accuracy && (
-          <div>
-            <p className="text-gray-400 text-sm">Accuracy</p>
-            <p className="text-xl font-semibold">{metrics.accuracy}%</p>
-          </div>
-        )}
-        {metrics.latency && (
-          <div>
-            <p className="text-gray-400 text-sm">Latency</p>
-            <p className="text-xl font-semibold">{metrics.latency}ms</p>
-          </div>
-        )}
-        {metrics.threats && (
-          <div>
-            <p className="text-gray-400 text-sm">Threats</p>
-            <p className="text-xl font-semibold">{metrics.threats}</p>
-          </div>
-        )}
-      </div>
+      <p className="text-gray-300">{description}</p>
     </Card>
   );
 };

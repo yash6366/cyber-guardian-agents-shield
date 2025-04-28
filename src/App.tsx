@@ -10,6 +10,8 @@ import Simulation from "./pages/Simulation";
 import Config from "./pages/Config";
 import NotFound from "./pages/NotFound";
 import Navigation from "./components/Navigation";
+import { Auth } from "./components/Auth";
+import Reports from "./pages/Reports";
 
 const queryClient = new QueryClient();
 

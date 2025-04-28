@@ -1,4 +1,3 @@
-
 import { Shield, FileText, Code } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -12,19 +11,19 @@ const Index = () => {
     {
       name: "Hunter Agent",
       description: "Autonomous threat detection and monitoring",
-      status: "Active",
-      type: "detection" as const,
+      status: "active" as const,
+      type: "hunter" as const,
     },
     {
       name: "Classifier Agent",
       description: "Dynamic threat classification using LLMs",
-      status: "Active",
-      type: "classification" as const,
+      status: "active" as const,
+      type: "classifier" as const,
     },
     {
       name: "Response Agent",
       description: "Real-time self-healing response system",
-      status: "Standing By",
+      status: "inactive" as const,
       type: "response" as const,
     },
   ];
