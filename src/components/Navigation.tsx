@@ -38,7 +38,7 @@ const Navigation = () => {
                 }`}
               >
                 <span className="mr-2">{item.icon}</span>
-                <span>{item.name}</span>
+                <span className="hidden md:inline">{item.name}</span>
               </Link>
             ))}
 
