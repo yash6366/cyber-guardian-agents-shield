@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 export type IncidentSeverity = 'Low' | 'Medium' | 'High' | 'Critical';
 export type IncidentStatus = 'New' | 'Investigating' | 'Containment' | 'Eradication' | 'Recovery' | 'Closed';
+export type NotificationSeverity = 'info' | 'warning' | 'error' | 'success';
 
 export interface ResponseTask {
   id: string;
@@ -44,7 +45,7 @@ export interface IncidentResponse {
     timestamp: number;
     message: string;
     taskId?: string;
-    severity?: 'info' | 'warning' | 'error' | 'success';
+    severity?: NotificationSeverity;
   }[];
   owner?: string;
   tags?: string[];
@@ -93,6 +94,14 @@ export interface ResponseTemplate {
     category?: 'detection' | 'containment' | 'eradication' | 'recovery' | 'post-incident';
     dependencies?: number[]; // Order numbers of tasks this depends on
   }[];
+}
+
+// Helper function to ensure severity values are of the correct type
+function getSafeSeverity(severity: string | undefined): NotificationSeverity {
+  if (severity && ["error", "success", "info", "warning"].includes(severity)) {
+    return severity as NotificationSeverity;
+  }
+  return "info"; // Default fallback
 }
 
 // Predefined response templates based on TheHive methodologies
@@ -518,7 +527,7 @@ export function advanceTask(response: IncidentResponse, taskId: string): Inciden
         timestamp: now,
         message: `Task "${task.title}" started`,
         taskId,
-        severity: 'info'
+        severity: 'info' as NotificationSeverity
       }
     ];
     
@@ -542,7 +551,7 @@ export function advanceTask(response: IncidentResponse, taskId: string): Inciden
         timestamp: now,
         message: `Task "${task.title}" completed`,
         taskId,
-        severity: 'success'
+        severity: 'success' as NotificationSeverity
       }
     ];
     
@@ -558,7 +567,7 @@ export function advanceTask(response: IncidentResponse, taskId: string): Inciden
       timeline.push({
         timestamp: now,
         message: 'All tasks completed, incident closed',
-        severity: 'success'
+        severity: 'success' as NotificationSeverity
       });
       
       return {
@@ -591,7 +600,7 @@ export function advanceTask(response: IncidentResponse, taskId: string): Inciden
         timeline.push({
           timestamp: now,
           message: `Incident status updated to ${status}`,
-          severity: 'info'
+          severity: 'info' as NotificationSeverity
         });
       }
       
@@ -635,7 +644,7 @@ export function addArtifact(response: IncidentResponse, artifact: Omit<TaskArtif
     {
       timestamp: now,
       message: `Artifact added: ${artifact.type} - ${artifact.name}`,
-      severity: artifact.isMalicious ? 'warning' : 'info'
+      severity: artifact.isMalicious ? 'warning' : 'info' as NotificationSeverity
     }
   ];
   
