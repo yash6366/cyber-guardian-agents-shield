@@ -252,3 +252,111 @@ function generateRecommendedActions(threatType) {
   const actions = specificActions[threatType] || specificActions.default;
   return [...actions, ...commonActions];
 }
+
+// Add the missing exports that are required by Simulation.tsx
+// AI Detection Model object
+export const aiDetectionModel = {
+  detectAnomaly: (logs) => {
+    // Simulate AI analysis of logs
+    const hasAnomaly = Math.random() > 0.3;
+    
+    return {
+      isAnomaly: hasAnomaly,
+      confidence: hasAnomaly ? 0.75 + (Math.random() * 0.24) : 0.1 + (Math.random() * 0.2),
+      detectedPattern: hasAnomaly ? 
+        ['Command and Control', 'Lateral Movement', 'Data Exfiltration', 'Privilege Escalation'][Math.floor(Math.random() * 4)] + 
+        ': ' + ['Unusual access pattern', 'Suspicious network traffic', 'Credential misuse'][Math.floor(Math.random() * 3)] :
+        null,
+      associatedTechnique: hasAnomaly ? 'T' + (1000 + Math.floor(Math.random() * 500)) : null,
+      recommendations: hasAnomaly ? [
+        'Isolate affected systems',
+        'Review access logs',
+        'Reset compromised credentials',
+        'Update firewall rules'
+      ] : []
+    };
+  }
+};
+
+// Generate simulated logs for the simulation environment
+export function generateSimulatedLogs(attackType, count = 5) {
+  const logs = [];
+  const now = Date.now();
+  
+  const sourceIPs = [
+    '192.168.1.' + Math.floor(Math.random() * 255),
+    '10.0.0.' + Math.floor(Math.random() * 255),
+    '172.16.' + Math.floor(Math.random() * 255) + '.' + Math.floor(Math.random() * 255)
+  ];
+  
+  const targets = [
+    'auth-server',
+    'database-01',
+    'web-frontend',
+    'api-gateway',
+    'file-storage'
+  ];
+  
+  const users = [
+    'admin',
+    'system',
+    'webapp',
+    'apiuser',
+    'backup'
+  ];
+  
+  // Different log patterns based on attack type
+  let logPatterns;
+  
+  switch(attackType.toLowerCase()) {
+    case 'sql':
+      logPatterns = [
+        { action: 'SQL Query', data: { query: "SELECT * FROM users WHERE username='admin' OR 1=1--'" } },
+        { action: 'Database Error', data: { error: "Syntax error in SQL statement" } },
+        { action: 'Schema Access', data: { tables: ["users", "permissions", "credentials"] } }
+      ];
+      break;
+    case 'ddos':
+      logPatterns = [
+        { action: 'Connection Flood', data: { connections: 1000 + Math.floor(Math.random() * 5000) } },
+        { action: 'Service Unavailable', data: { status: 503, reason: "Max connections reached" } },
+        { action: 'Resource Exhaustion', data: { cpu: "98%", memory: "94%" } }
+      ];
+      break;
+    case 'ransomware':
+      logPatterns = [
+        { action: 'File Operation', data: { operation: "WRITE", count: 1000 + Math.floor(Math.random() * 2000) } },
+        { action: 'File Extension Change', data: { extensions: [".encrypted", ".locked", ".ransom"] } },
+        { action: 'Process Creation', data: { name: "unknown_process.exe", args: "/encrypt /silent" } }
+      ];
+      break;
+    default:
+      logPatterns = [
+        { action: 'Authentication', data: { success: Math.random() > 0.7, attempts: 1 + Math.floor(Math.random() * 5) } },
+        { action: 'File Access', data: { path: "/sensitive/data/file.dat", operation: "READ" } },
+        { action: 'Network Connection', data: { destination: "external-server-" + Math.floor(Math.random() * 100) + ".com" } }
+      ];
+  }
+  
+  // Generate the specified number of logs
+  for (let i = 0; i < count; i++) {
+    const logPattern = logPatterns[Math.floor(Math.random() * logPatterns.length)];
+    const sourceIP = sourceIPs[Math.floor(Math.random() * sourceIPs.length)];
+    const target = targets[Math.floor(Math.random() * targets.length)];
+    const user = users[Math.floor(Math.random() * users.length)];
+    
+    logs.push({
+      id: uuidv4(),
+      timestamp: now - Math.floor(Math.random() * 3600000), // Random time in the last hour
+      source: sourceIP,
+      user: user,
+      action: logPattern.action,
+      target: target,
+      data: logPattern.data
+    });
+  }
+  
+  // Sort by timestamp (newest first)
+  return logs.sort((a, b) => b.timestamp - a.timestamp);
+}
+
