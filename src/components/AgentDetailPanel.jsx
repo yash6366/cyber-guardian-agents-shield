@@ -1,15 +1,15 @@
 
 import React from 'react';
-import { Card } from "@/components/ui/card";
-import { Activity, Database, Shield, Code, FileText, Zap } from "lucide-react";
-import { Progress } from "@/components/ui/progress";
-import { Separator } from "@/components/ui/separator";
+import { Card } from "./ui/card";
+import { Activity, Database, Shield, Code, FileText } from "lucide-react";
+import { Progress } from "./ui/progress";
+import { Separator } from "./ui/separator";
 
 const AgentDetailPanel = ({ agentType }) => {
   const agentDetails = {
     hunter: {
       name: "Hunter Agent",
-      icon: <Activity className="w-8 h-8 text-blue-500" />,
+      icon: <Activity className="w-6 h-6 text-blue-500" />,
       description: "Autonomously detects threats in network traffic and system logs using machine learning.",
       status: "Active",
       metrics: [
@@ -37,7 +37,7 @@ def detect_threats(network_traffic, system_logs):
     },
     classifier: {
       name: "Classifier Agent",
-      icon: <Database className="w-8 h-8 text-purple-500" />,
+      icon: <Database className="w-6 h-6 text-purple-500" />,
       description: "Classifies detected threats using LLMs and retrieval-augmented generation.",
       status: "Active",
       metrics: [
@@ -67,7 +67,7 @@ async def classify_threat(threat_data):
     },
     response: {
       name: "Response Agent",
-      icon: <Shield className="w-8 h-8 text-green-500" />,
+      icon: <Shield className="w-6 h-6 text-green-500" />,
       description: "Executes appropriate response actions based on threat classifications.",
       status: "Standing By",
       metrics: [
@@ -76,6 +76,7 @@ async def classify_threat(threat_data):
         { name: "Time to Mitigate", value: 90 },
       ],
       technologies: [
+        "RAG-Enhanced Classification",
         "Policy-Based Response",
         "Self-Healing System",
         "Firewall Integration",
@@ -103,68 +104,64 @@ def execute_response(threat_classification):
   const details = agentDetails[agentType];
 
   return (
-    <Card className="bg-gradient-to-br from-gray-800/70 to-gray-900/70 border-gray-700 shadow-xl backdrop-blur-sm">
+    <Card className="bg-gray-800/50 border-gray-700">
       <div className="p-6">
-        <div className="flex items-center gap-3 mb-6 relative">
-          <div className="absolute -top-10 -left-10 w-24 h-24 bg-blue-500/20 rounded-full blur-xl"></div>
+        <div className="flex items-center gap-3 mb-4">
           {details.icon}
-          <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">{details.name}</h3>
-          <span className={`ml-auto px-3 py-1 rounded-full text-xs font-semibold ${
-            details.status === "Active" ? "bg-green-900/60 text-green-400 border border-green-500/30" : 
-            "bg-yellow-900/60 text-yellow-400 border border-yellow-500/30"
+          <h3 className="text-2xl font-bold">{details.name}</h3>
+          <span className={`ml-auto px-2 py-1 rounded-full text-xs ${
+            details.status === "Active" ? "bg-green-900/60 text-green-400" : 
+            "bg-yellow-900/60 text-yellow-400"
           }`}>
             {details.status}
           </span>
         </div>
 
-        <p className="text-gray-300 mb-8 leading-relaxed">{details.description}</p>
+        <p className="text-gray-300 mb-6">{details.description}</p>
         
         <h4 className="text-lg font-semibold mb-4 flex items-center gap-2">
-          <Activity className="w-5 h-5 text-blue-500" />
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">Performance Metrics</span>
+          <Activity className="w-4 h-4 text-blue-500" />
+          Performance Metrics
         </h4>
         
-        <div className="space-y-6 mb-8">
+        <div className="space-y-4 mb-6">
           {details.metrics.map(metric => (
-            <div key={metric.name} className="hover:transform hover:scale-[1.02] transition-all duration-300">
+            <div key={metric.name}>
               <div className="flex justify-between mb-1">
                 <span className="text-sm text-gray-400">{metric.name}</span>
-                <span className="text-sm font-medium text-white">{metric.value}%</span>
+                <span className="text-sm font-medium">{metric.value}%</span>
               </div>
-              <div className="relative">
-                <Progress value={metric.value} className="h-2 bg-gray-700" indicatorClassName="bg-gradient-to-r from-blue-500 to-cyan-500" />
-                <div className="absolute inset-0 bg-blue-500/10 blur-sm"></div>
-              </div>
+              <Progress value={metric.value} className="h-2" />
             </div>
           ))}
         </div>
         
-        <Separator className="my-8 bg-gray-700/50" />
+        <Separator className="my-6" />
         
         <h4 className="text-lg font-semibold mb-4 flex items-center gap-2">
-          <FileText className="w-5 h-5 text-blue-500" />
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">Core Technologies</span>
+          <FileText className="w-4 h-4 text-blue-500" />
+          Core Technologies
         </h4>
         
-        <div className="mb-8">
-          <ul className="grid grid-cols-2 gap-3">
+        <div className="mb-6">
+          <ul className="grid grid-cols-2 gap-2">
             {details.technologies.map(tech => (
-              <li key={tech} className="flex items-center gap-3 bg-gray-800/50 p-3 rounded-lg border border-gray-700/50 hover:border-blue-500/30 transition-all duration-300">
-                <Zap className="w-4 h-4 text-blue-500" />
+              <li key={tech} className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-blue-500" />
                 <span className="text-gray-300 text-sm">{tech}</span>
               </li>
             ))}
           </ul>
         </div>
         
-        <Separator className="my-8 bg-gray-700/50" />
+        <Separator className="my-6" />
         
         <h4 className="text-lg font-semibold mb-4 flex items-center gap-2">
-          <Code className="w-5 h-5 text-blue-500" />
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">Implementation Sample</span>
+          <Code className="w-4 h-4 text-blue-500" />
+          Implementation Sample
         </h4>
         
-        <div className="bg-gray-900/80 rounded-lg p-4 overflow-x-auto border border-gray-700/50 shadow-inner">
+        <div className="bg-gray-900 rounded-md p-4 overflow-x-auto">
           <pre className="text-gray-300 text-sm font-mono">
             {details.codeSnippet}
           </pre>

@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { AlertTriangle, Check, Shield, Clock } from 'lucide-react';
+import { Shield, Clock, Check, AlertTriangle } from 'lucide-react';
 
 const ThreatFeed = ({ alerts }) => {
   const getSeverityColor = (severity) => {

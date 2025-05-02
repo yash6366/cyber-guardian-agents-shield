@@ -1,58 +1,69 @@
+
 import React from 'react';
-import { Activity, Database, Shield, Cloud, Server, Zap, Lock, Brain, Cpu } from 'lucide-react';
-import { Card } from '@/components/ui/card';
+import { Activity, Database, Shield, Cloud, Server } from 'lucide-react';
+import { Card } from './ui/card';
 
 const ArchitectureDiagram = () => {
   const layers = [
     {
       name: "Multi-Agent Layer",
-      bgClass: "from-blue-950/50 to-blue-900/30",
-      borderClass: "border-blue-800/50",
       components: [
-        { name: "Hunter Agent", icon: <Brain className="w-6 h-6 text-blue-500" /> },
-        { name: "Classifier Agent", icon: <Cpu className="w-6 h-6 text-purple-500" /> },
-        { name: "Response Agent", icon: <Shield className="w-6 h-6 text-green-500" /> }
+        { name: "Hunter Agent", icon: <Activity className="w-5 h-5 text-blue-500" /> },
+        { name: "Classifier Agent", icon: <Database className="w-5 h-5 text-purple-500" /> },
+        { name: "Response Agent", icon: <Shield className="w-5 h-5 text-green-500" /> }
       ]
     },
     {
       name: "Shared Memory / State Layer",
-      bgClass: "from-purple-950/50 to-purple-900/30",
-      borderClass: "border-purple-800/50",
       components: [
-        { name: "Logs", icon: <Database className="w-6 h-6 text-yellow-500" /> },
-        { name: "Network Traffic", icon: <Activity className="w-6 h-6 text-yellow-500" /> },
-        { name: "Vulnerabilities DB", icon: <Lock className="w-6 h-6 text-yellow-500" /> }
+        { name: "Logs", icon: <Database className="w-5 h-5 text-yellow-500" /> },
+        { name: "Network Traffic", icon: <Activity className="w-5 h-5 text-yellow-500" /> },
+        { name: "Vulnerabilities DB", icon: <Database className="w-5 h-5 text-yellow-500" /> }
       ]
     },
     {
       name: "Simulation Environment Layer",
-      bgClass: "from-cyan-950/50 to-cyan-900/30",
-      borderClass: "border-cyan-800/50",
       components: [
-        { name: "Cloud Network", icon: <Cloud className="w-6 h-6 text-cyan-500" /> },
-        { name: "VMs", icon: <Server className="w-6 h-6 text-cyan-500" /> },
-        { name: "Applications", icon: <Zap className="w-6 h-6 text-cyan-500" /> }
+        { name: "Cloud Network", icon: <Cloud className="w-5 h-5 text-cyan-500" /> },
+        { name: "VMs", icon: <Server className="w-5 h-5 text-cyan-500" /> },
+        { name: "Applications", icon: <Server className="w-5 h-5 text-cyan-500" /> }
       ]
-    }
+    },
+    {
+      name: "External Data APIs",
+      components: [
+        { name: "Threat Intel", icon: <Database className="w-5 h-5 text-orange-500" /> },
+        { name: "CVE Database", icon: <Database className="w-5 h-5 text-orange-500" /> },
+        { name: "RAG", icon: <Database className="w-5 h-5 text-orange-500" /> }
+      ]
+    },
   ];
 
   return (
-    <div className="p-4">
-      <div className="space-y-4">
-        {layers.map((layer, index) => (
-          <Card key={index} className={`p-4 bg-gradient-to-r ${layer.bgClass} border ${layer.borderClass}`}>
-            <h3 className="text-lg font-semibold mb-4 text-white">{layer.name}</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {layer.components.map((component, compIndex) => (
-                <div key={compIndex} className="flex items-center space-x-3 p-3 rounded-lg bg-black/20">
+    <div className="max-w-4xl mx-auto">
+      {layers.map((layer, index) => (
+        <div key={layer.name} className="mb-8">
+          <Card className="border border-gray-700 bg-gray-800/50 rounded-lg p-4 relative">
+            <div className="text-xl font-semibold text-center mb-4">{layer.name}</div>
+            
+            <div className="grid grid-cols-3 gap-4">
+              {layer.components.map(component => (
+                <div key={component.name} className="flex flex-col items-center border border-gray-700 bg-gray-900/50 rounded p-3">
                   {component.icon}
-                  <span className="text-sm text-gray-200">{component.name}</span>
+                  <span className="text-sm mt-2 text-gray-300">{component.name}</span>
                 </div>
               ))}
             </div>
+            
+            {index < layers.length - 1 && (
+              <div className="absolute left-1/2 -bottom-6 transform -translate-x-1/2 z-10">
+                <div className="w-0.5 h-6 bg-blue-500" />
+                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-3 h-3 rotate-45 border-b border-r border-blue-500" />
+              </div>
+            )}
           </Card>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   );
 };
